@@ -28,20 +28,40 @@ public class Maze {
     
     }
   
-    public Maze(String name_of_file){
+    public Maze(String name_of_file) {
         List<String> lines;
-        String line;
-        
         lines = loadMazeFromFile(name_of_file);
-        
+
         hight_of_the_maze = lines.size();
         width_of_the_maze = lines.get(0).toCharArray().length;
-
         maze = new Cell[hight_of_the_maze][width_of_the_maze];
 
+        createMazeCells(lines);
+        linkMazeCells();
+
+    }
+
+    private void linkMazeCells() {
+        for (int i = 0; i < hight_of_the_maze; i++) {
+            for (int j = 0; j < width_of_the_maze; j++) {
+                if (maze[i][j].isCorridor()) {
+                    if (j+1!=width_of_the_maze && maze[i][j+1].isCorridor()){
+                    maze[i][j].setRight_cell(maze[i][j+1]);
+                    maze[i][j+1].setLeft_cell(maze[i][j]);
+                    }
+                    
+
+                }
+            }
+        }
+    }
+
+    private void createMazeCells(List<String> lines) {
+        String line;
         Iterator iter = lines.iterator();
         char[] row;
-        int i=0, j;
+        int i = 0, j;
+
         while (iter.hasNext()) {
             line = (String) iter.next();
             row = line.toCharArray();
@@ -53,7 +73,6 @@ public class Maze {
         }
     
     }
-
     private List<String> loadMazeFromFile(String name_of_file) {
 
         List<String> lines = new ArrayList();
