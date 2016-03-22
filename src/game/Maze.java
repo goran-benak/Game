@@ -48,6 +48,11 @@ public class Maze {
                     if (j+1!=width_of_the_maze && maze[i][j+1].isCorridor()){
                     maze[i][j].setRight_cell(maze[i][j+1]);
                     maze[i][j+1].setLeft_cell(maze[i][j]);
+                    
+                    if(j==0 && maze[i][0].isCorridor() && maze[i][width_of_the_maze-1].isCorridor()){
+                    maze[i][width_of_the_maze-1].setRight_cell(maze[i][0]);
+                    maze[i][0].setLeft_cell(maze[i][width_of_the_maze-1]);
+                    }
                     }
                     
 
