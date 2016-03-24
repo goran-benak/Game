@@ -41,6 +41,12 @@ public class Maze {
 
     }
 
+    public Maze(Maze m){
+    hight_of_the_maze = m.hight_of_the_maze;
+    width_of_the_maze = m.width_of_the_maze;
+    this.maze = m.maze;
+    }
+    
     private void linkMazeCells() {
         for (int i = 0; i < hight_of_the_maze; i++) {
             for (int j = 0; j < width_of_the_maze; j++) {
@@ -72,7 +78,7 @@ public class Maze {
             row = line.toCharArray();
 
             for (j = 0; j < row.length; j++) {
-                maze[i][j] = new Cell(row[j]);
+                maze[i][j] = new Cell(row[j], i, j);
             }
             i++;
         }
@@ -83,7 +89,7 @@ public class Maze {
         List<String> lines = new ArrayList();
 
         try (BufferedReader br = new BufferedReader(new FileReader(name_of_file))) {
-            StringBuilder sb = new StringBuilder();
+           
             String line = br.readLine();
 
             while (line != null) {
@@ -121,5 +127,34 @@ public class Maze {
     return out;
     }
     
+
+private void calculateDistance(Cell start_cell, Cell finish_cell){
+    List <Cell> unvisited_cells = new ArrayList();
+    List <Cell> visited_cells = new ArrayList();
+    
+    Cell evaluating_cell;
+    
+    unvisited_cells.add(start_cell);
+    start_cell.relative_distance = 0;
+    
+    while (unvisited_cells.isEmpty()!=true){
+    evaluating_cell = getMinimumDistantCell(unvisited_cells);
+    
+    }
+   
+    
+    
+
+}
+
+    private Cell getMinimumDistantCell(List<Cell> unvisited_cells) {
+        
+        
+        
+        return unvisited_cells.get(0);
+    }
+
+
+
     
 }

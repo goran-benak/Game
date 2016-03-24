@@ -10,7 +10,8 @@ package game;
  * @author rosenkranz
  */
 public class Cell {
-   
+    private int coordinate[] = new int[2];
+    
     private TypeOfTheCell type_of_the_cell;
     private Food food;
     private char cell_character;
@@ -20,17 +21,29 @@ public class Cell {
     private Cell left_cell;
     private Cell right_cell;
     
+    
+    
+    
+    /**
+     *
+     */
+    public int relative_distance;
+    
     public Cell(TypeOfTheCell type, Food food) {
         this.type_of_the_cell = type;
         this.food = food;
     }
 
-    public Cell(char character) {
+    public Cell(char character, int x, int y) {
+        this.coordinate[0] = x;
+        this.coordinate[1] = y;
         this.cell_character = character;
         this.upper_cell = null;
         this.lower_cell = null;
         this.left_cell = null;
         this.right_cell = null;
+       
+        relative_distance = MAXIMAL_DISTANCE;
         
         
         switch (character) {
@@ -148,9 +161,40 @@ public class Cell {
     public boolean isCorridor(){
         return TypeOfTheCell.EMPTY_CORRIDOR==type_of_the_cell;
     }
+
+    /**
+     * @return the coordinate
+     */
+    public int[] getCoordinate() {
+        return coordinate;
+    }
+
+    /**
+     * @param coordinate the coordinate to set
+     */
+    public void setCoordinate(int[] coordinate) {
+        this.coordinate = coordinate;
+    }
+
+  
+
+    /**
+     * @return the relative_distance
+     */
+    public int getRelative_distance() {
+        return relative_distance;
+    }
+
+    /**
+     * @param relative_distance the relative_distance to set
+     */
+    public void setRelative_distance(int relative_distance) {
+        this.relative_distance = relative_distance;
+    }
     
     public enum TypeOfTheCell {WALL, EMPTY_CORRIDOR, FULL_CORRIDOR;}
     public enum Food {EMPTY, DOT, CHERRY, PIE;}
+    public final int MAXIMAL_DISTANCE = 100000000;
     
     
     
